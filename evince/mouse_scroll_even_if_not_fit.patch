@@ -1,0 +1,18 @@
+Author: Michael Fiedler <dev@michael-fiedler.net>
+Date:   Tue Mar 19 23:50:48 2013 +0100
+
+    Enable flipping pages by mouse wheel scrolling non-fit-page non-continuous view
+
+diff --git a/libview/ev-view.c b/libview/ev-view.c
+index 5b6e4ca..25f0197 100644
+--- a/libview/ev-view.c
++++ b/libview/ev-view.c
+@@ -3030,7 +3030,7 @@ ev_view_scroll_event (GtkWidget *widget, GdkEventScroll *event)
+                state &= ~GDK_SHIFT_MASK;
+        }
+ 
+-       if (state == 0 && view->sizing_mode == EV_SIZING_BEST_FIT && !view->continuous) {
++       if (state == 0 && !view->continuous) {
+                switch (event->direction) {
+                        case GDK_SCROLL_DOWN:
+                        case GDK_SCROLL_RIGHT:
