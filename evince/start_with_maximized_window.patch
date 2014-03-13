@@ -1,0 +1,45 @@
+commit 6afc0a72b028183d18c3ad269f475b98921ae959
+Author: Michael Fiedler <dev@michael-fiedler.net>
+Date:   Thu Mar 13 11:20:09 2014 +0100
+
+    Always start Evince window maximized
+
+diff --git a/shell/ev-window.c b/shell/ev-window.c
+index ae9a9cc..91a1b4e 100644
+--- a/shell/ev-window.c
++++ b/shell/ev-window.c
+@@ -1292,33 +1292,7 @@ setup_document_from_metadata (EvWindow *window)
+ static void
+ setup_size_from_metadata (EvWindow *window)
+ {
+-	gint     width;
+-	gint     height;
+-	gboolean maximized;
+-	gint     x;
+-	gint     y;
+-
+-	if (!window->priv->metadata)
+-		return;
+-
+-	if (ev_metadata_get_boolean (window->priv->metadata, "window_maximized", &maximized)) {
+-		if (maximized) {
+-			gtk_window_maximize (GTK_WINDOW (window));
+-			return;
+-		} else {
+-			gtk_window_unmaximize (GTK_WINDOW (window));
+-		}
+-	}
+-
+-	if (ev_metadata_get_int (window->priv->metadata, "window_x", &x) &&
+-	    ev_metadata_get_int (window->priv->metadata, "window_y", &y)) {
+-		gtk_window_move (GTK_WINDOW (window), x, y);
+-	}
+-
+-        if (ev_metadata_get_int (window->priv->metadata, "window_width", &width) &&
+-	    ev_metadata_get_int (window->priv->metadata, "window_height", &height)) {
+-		gtk_window_resize (GTK_WINDOW (window), width, height);
+-	}
++	gtk_window_maximize (GTK_WINDOW (window));
+ }
+ 
+ static void
